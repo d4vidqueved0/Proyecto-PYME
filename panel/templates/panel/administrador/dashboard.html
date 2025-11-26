@@ -1,0 +1,77 @@
+<div
+    style="display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <h2 class="texto-principal">Dashboard</h2>
+        <p class="texto-secundario">En este apartado puedes visualizar
+            diferentes metricas de tu negocio y ajustar el periodo segun
+            desees</p>
+    </div>
+
+    <div class="flex-alineado gap-1">
+        <i class="bi bi-calendar-event"></i>
+        <select class="form-select" id="filtrosDashboard">
+            <option value="7">7 días</option>
+            <option value="30">30 días</option>
+            <option value="90">90 días</option>
+        </select>
+    </div>
+</div>
+
+<div class="d-flex">
+    <div class="mini-tarjeta w-25">
+        <div class="d-flex justify-content-between">
+            <h3 class="texto-secundario fs-6">Ganancias estimadas</h3>
+            <button type="button" class="bi bi-info btn-info w-fit"
+                data-bs-toggle="tooltip" data-bs-placement="right"
+                data-bs-title="Solo se consideran citas asistidas"></button>
+
+        </div>
+        <span class="fw-bold fs-3" id="ganancias">$50000</span>
+        <small id="gananciasPor"">15%</small>
+    </div>
+    <div class="mini-tarjeta w-25 mx-1">
+        <h3 class="texto-secundario fs-6">Total citas</h3>
+        <span class="fw-bold fs-3" id="citasPeriodo"></span>
+        <small id="citasPor"">-35%</small>
+    </div>
+
+    <div class="mini-tarjeta w-25 mx-1">
+        <h3 class="texto-secundario fs-6">Nuevos clientes</h3>
+        <span class="fw-bold fs-3" id="nuevosClientes"></span>
+        <small id="nuevosClientesPor"">55%</small>
+    </div>
+
+    <div class="mini-tarjeta w-25 mx-1">
+        <h3 class="texto-secundario fs-6">Servicio más popular</h3>
+        <span class="fw-bold fs-4" id="servicioPopular"></span>
+    </div>
+</div>
+
+<div class="graficos">
+
+    <div class="me-auto tarjeta-grafico">
+        <h3 class=" texto-principal fw-semibold fs-5">Estados de las citas</h3>
+        <div class="chart-box">
+
+            <canvas id="graficoCitas"></canvas>
+        </div>
+    </div>
+
+    <div class="ms-auto tarjeta-grafico">
+        <h3 class="texto-principal fw-semibold fs-5">Servicios más
+            solicitados</h3>
+            <div class="chart-box">
+
+                <canvas id="graficoMejoresServicios"></canvas>
+            </div>
+    </div>
+
+    <div class="tarjeta-grafico-lineas">
+        <h3 class="texto-principal fw-semibold fs-5">Citas por periodo</h3>
+        <div class="chart-box">
+
+            <canvas id="graficoLineas"></canvas>
+        </div>
+    </div>
+
+</div>

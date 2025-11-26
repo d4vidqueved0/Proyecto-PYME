@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="formularios w-100 h-100 d-flex">
+    <!-- Formulario Login -->
+    <div id="formulario_login" style="height: 500px; width: 550px;"
+        class="row rounded-4 p-5 m-auto tarjeta forms animacion">
+
+        <div class="m-auto">
+
+            <div class="d-flex justify-content-center align-items-center mb-4">
+                <div class="mb-3">
+                    <h1 class="texto-principal text-center m-0 ">Iniciar Sesión</h1>
+                    <button type="button" class="btn p-0 m-0 btn-secundario mt-2" id="btnCambiarFormLogin">¿No tienes cuenta?
+                        <strong>
+                            Registrate
+                        </strong></button>
+                </div>
+            </div>
+
+            <form id="formLogin" method="post">
+                {% csrf_token %}
+
+                <div>
+                    <label for="id_email_login" class="col-form-label texto-secundario">Email:
+                        <small style="color: var(--color-boton-eliminar)" id="error_email_login"></small>
+                    </label>
+                    <input type="email" name="email" class="form-control input-color" maxlength="50" required
+                        id="id_email_login">
+                </div>
+
+
+                <label for="id_password_login" class="col-form-label texto-secundario">Contraseña:
+                    <small style="color: var(--color-boton-eliminar)" id="error_password_login"></small>
+                </label>
+                <div class="position-relative">
+                    <input type="password" name="password" class="form-control input-color" id="id_password">
+                    <button id="btnVerContraseña" type="button" class="position-absolute bottom-0 end-0 h-100 border-0"
+                        style="background: none;">
+                        <i class="bi bi-eye-slash"></i>
+                    </button>
+                </div>
+                <small style="color: var(--color-boton-eliminar)" id="error_login"></small>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <button id="btnIniciarSesion" class="btn btn-principal" name="btnLogin">Iniciar
+                        Sesión
+                    </button>
+                    <a href="{% url 'password_reset' %}" type="button" class="btn-secundario border-0 p-0 fs-6">¿Olvidó
+                        la contraseña?</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Formulario Registro -->
+
+
+    <div id="formulario_registro" style="width: 1000px; height: 500px;"
+        class="row m-auto rounded-4 p-5  m-auto tarjeta oculto forms">
+
+        <div class="col d-flex justify-content-center align-items-center">
+            <div>
+                <h1 class="texto-principal">Crear cuenta</h1>
+                <button class="btn p-0 btn-secundario" id="btnCambiarFormRegistro">¿Ya
+                    tienes una cuenta? <strong>
+                        Inicia sesión
+                    </strong></button>
+            </div>
+        </div>
+        <div class="col m-auto">
+            <form id="formRegistro" method="post">
+
+                {% csrf_token %}
+
+                <div>
+                    <label for="id_email_registro" class="col-form-label texto-secundario">Email:
+                        <small style="color: var(--color-boton-eliminar)" id="error_email_registro"></small>
+                    </label>
+                    <input type="email" name="email" class="form-control input-color" maxlength="50" required
+                        id="id_email_registro">
+                </div>
+
+
+                <div>
+                    <label for="id_nombre_registro" class="col-form-label texto-secundario">Nombre:
+                        <small style="color: var(--color-boton-eliminar)" id="error_nombre_registro"></small>
+                    </label>
+                    <input type="text" name="first_name" class="form-control input-color" maxlength="50" required
+                        id="id_nombre_registro">
+                </div>
+
+
+
+
+                <label for="id_password1_registro" class="col-form-label texto-secundario">Contraseña:
+                    <small style="color: var(--color-boton-eliminar)" id="error_password1_registro"></small>
+                </label>
+                <div class="position-relative">
+                    <input type="password" name="password1" class="form-control input-color" id="id_password1_registro">
+                    <button id="btnVerContraseña1" type="button" class="position-absolute bottom-0 end-0 h-100 border-0"
+                        style="background: none;">
+                        <i class="bi bi-eye-slash"></i>
+                    </button>
+                </div>
+
+
+
+                <label for="id_password2_registro" class="col-form-label texto-secundario">Repetir contraseña:
+                    <small style="color: var(--color-boton-eliminar)" id="error_password2_registro"></small>
+                </label>
+                <div class="position-relative">
+                    <input type="password" name="password2" class="form-control input-color" id="id_password2_registro">
+                    <button id="btnVerContraseña2" type="button" class="position-absolute bottom-0 end-0 h-100 border-0"
+                        style="background: none;">
+                        <i class="bi bi-eye-slash"></i>
+                    </button>
+                </div>
+
+                <small style="color: var(--color-boton-eliminar)" id="error_registro"></small>
+
+
+
+                <!-- <div class="position-relative">
+                            <input type="password" name="password1" class="form-control " placeholder="Contraseña"
+                                maxlength="50" required id="id_password1">
+                            <button id="btnVerContraseña1" type="button"
+                                class="position-absolute bottom-0 end-0 h-100 border-0" style="background: none;">
+                                <i class="bi bi-eye-slash"></i>
+                            </button>
+                        </div>
+
+                        <div class="position-relative">
+                            <input type="password" name="password2" class="form-control "
+                                placeholder="Repetir contraseña" maxlength="50" required id="id_password2">
+                            <button id="btnVerContraseña2" type="button"
+                                class="position-absolute bottom-0 end-0 h-100 border-0" style="background: none;">
+                                <i class="bi bi-eye-slash"></i>
+                            </button>
+                        </div> -->
+
+
+                <button id="btnRegistrarse" class="btn btn-principal mt-3" name="btnRegistrar">Crear cuenta</button>
+
+            </form>
+        </div>
+        </form>
+    </div>
+
+</div>
+
+{% load static %}
+<script src="{% static 'js/login.js' %}" defer></script>
+{% endblock %}

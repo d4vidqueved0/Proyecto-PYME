@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}
+Página principal
+{% endblock %}
+{% block content %}
+
+<div class="container px-5 my-5">
+
+  <div class="grid-2 gap-3 mb-5">
+
+    <div class="column-center">
+      <h1 id="tituloPagina" class="texto-principal mt-1"></h1>
+
+      <p id="descripcionPagina" class="texto-secundario mt-3">
+      </p>
+
+      <div>
+        <a href="{% url 'agendar_cita' %}" id="btnAgendarCita"
+          class="btn btn-principal px-5 py-2 rounded-4 fs-5 mt-3 fit-content">
+          Agendar cita
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div id="carouselExampleIndicators" class="carousel carousel-slide"
+        data-bs-ride="carousel">
+        <div class="w-100 h-100 bg-dark"></div>
+        <div class="carousel-indicators"></div>
+        <div class="carousel-inner">{% load static %}</div>
+
+        <button hidden class="carousel-control-prev" type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button hidden class="carousel-control-next" type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="w-100 opacity-100 border-5 hr-cancelar">
+
+  <h2 id="nuestros-servicios"
+    class="texto-principal mt-5 text-center fs-2">Nuestros servicios</h2>
+
+  <div id="seccionServicios" class="serviciosTodos my-5"></div>
+
+</div>
+
+<footer class="footer-bg">
+  <div class="container">
+
+    <h2 id="visitanos" class="text-center mt-5 mb-2 texto-principal fs-2">Sobre
+      nosotros</h2>
+
+    <div id="infoNegocio" class="grid-info gap-5">
+
+      <div class="d-flex flex-column gap-4 ms-auto my-4">
+        <h3 class="texto-principal fs-5">Horario de atención</h3>
+
+        <div id="horarioAtencionPrincipal"
+          class="grid-horario gap-3"></div>
+      </div>
+
+      <ul class="d-flex flex-column gap-3 ms-3 mr-auto my-4">
+        <h3 class="texto-principal fs-5">Contáctanos</h3>
+
+        <div class="d-flex gap-1 align-items-center">
+          <i class="bi bi-geo-alt icon-contacto"></i>
+          <li class="texto-secundario fs-6 text-break"></li>
+        </div>
+
+        <div class="d-flex gap-1 align-items-center">
+          <i class="bi bi-telephone icon-contacto"></i>
+          <li class="texto-secundario fs-6 text-break"></li>
+        </div>
+
+        <div class="d-flex gap-1 align-items-center">
+          <i class="bi bi-envelope icon-contacto"></i>
+          <li class="texto-secundario fs-6 text-break"></li>
+        </div>
+
+      </ul>
+
+    </div>
+
+    <p class="m-auto text-center mb-3">
+      <br>
+      <small class="texto-secundario">¿Encontraste algún problema en la web? Envia un correo informando</small>
+      <!-- <small class="texto-secundario">©Todos los derechos reservados.</small> -->
+    </p>
+
+  </div>
+</footer>
+
+<script src="{% static 'js/principal.js' %}" defer></script>
+
+{% endblock %}

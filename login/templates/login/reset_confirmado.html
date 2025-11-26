@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="tarjeta p-5 rounded-5 mt-5">
+    <h2 class="texto-principal">Nueva contraseña</h2>
+    <p class="texto-secundario">Ingrese su nueva contraseña considerando lo
+        siguiente:</p>
+    <ul>
+        <li class="texto-secundario">Su contraseña no puede asemejarse tanto a
+            su otra información personal.</li>
+        <li class="texto-secundario">Su contraseña debe contener al menos 8
+            caracteres.</li>
+        <li class="texto-secundario">Su contraseña no puede ser una clave
+            utilizada comúnmente.</li>
+        <li class="texto-secundario">Su contraseña no puede ser completamente
+            numérica.</li>
+    </ul>
+    <form method="post" class="d-flex flex-column gap-3">
+        {% csrf_token %}
+        <div class="position-relative">
+            <input type="password" name="new_password1"
+                class="form-control"
+                placeholder="Nueva contraseña" maxlength="50"
+                required
+                id="id_new_password1">
+            <button id="btnVerContraseña1" type="button"
+                class="position-absolute bottom-0 end-0 h-100 border-0"
+                style="background: none;">
+                <i class="bi bi-eye-slash"></i>
+            </button>
+        </div>
+
+        
+
+        <div class="position-relative">
+            <input type="password" name="new_password2"
+                class="form-control "
+                placeholder="Repetir contraseña" maxlength="50"
+                required
+                id="id_new_password2">
+            <button id="btnVerContraseña2" type="button"
+                class="position-absolute bottom-0 end-0 h-100 border-0"
+                style="background: none;">
+                <i class="bi bi-eye-slash"></i>
+            </button>
+        </div>
+
+        <small style="min-height: 10px; color: red;">{{form.new_password2.errors}}</small>
+        <div>
+            <button class="btn btn-principal" type="submit">Confirmar</button>
+        </div>
+    </form>
+</div>
+{% load static %}
+<script type="module">
+
+
+const btnVerContraseña1 = document.getElementById('btnVerContraseña1')
+const btnVerContraseña2 = document.getElementById('btnVerContraseña2')
+
+const inputContraseña1 = document.getElementById('id_new_password1')
+const inputContraseña2 = document.getElementById('id_new_password2')
+
+
+
+function verContraseña(btn, input){
+
+    const icono = btn.querySelector('i')
+
+   if (input.getAttribute('type') == 'password'){
+
+        input.setAttribute('type', 'text')       
+        icono.classList.remove('bi-eye-slash')
+        icono.classList.add('bi-eye')
+
+
+    }else{
+        input.setAttribute('type', 'password')
+        icono.classList.add('bi-eye-slash')
+        icono.classList.remove('bi-eye')
+    }
+}
+
+btnVerContraseña1.addEventListener('click', ()=>{
+
+    verContraseña(btnVerContraseña1, inputContraseña1)
+
+})
+
+btnVerContraseña2.addEventListener('click', ()=>{
+
+    verContraseña(btnVerContraseña2, inputContraseña2)
+
+})
+
+</script>
+{% endblock %}

@@ -1,0 +1,350 @@
+<div>
+    <h2 class="texto-principal">Personalizacion</h2>
+    <p class="texto-secundario">En este apartado puedes cambiar toda la
+        informacion del negocio, agregar imagenes al
+        carrusel y elegir el tema de la web</p>
+
+</div>
+
+<div
+    style="background-color: var(--color-fondo-secundario); border: 3px solid var(--color-boton-cancelar);"
+    class="p-5 pt-3 rounded-4 mt-3">
+    <h3 class="texto-principal mt-2">Imagenes carrusel</h3>
+    <hr class="w-100 opacity-100 border-3"
+        style="color: var(--color-boton-cancelar); ">
+
+    <form id="form-drop" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div id="drop-carrusel" class="d-flex w-100 m-auto"
+            style="height: 400px; border-radius: 24px;">
+            <input type="file" multiple hidden name="imagen">
+            <div
+                style="border: 5px dashed var(--color-boton-cancelar);width: 100%; height: 100%; margin: auto; display: flex;flex-direction: column; justify-content: center; align-items: center; border-radius: 16px;">
+                <i class="texto-principal bi bi-cloud-arrow-up"
+                    style="font-size: 6rem;"></i>
+                <small class="texto-secundario my-0 fs-6">Arrastra una imagen
+                    para
+                    agregar o toca aqui para seleccionar una. Maximo 5 imagenes en el carrusel</small>
+            </div>
+
+        </form>
+    </div>
+
+    <div id="seccionImagenes" class="w-100 d-flex gap-5 mt-3">
+
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr);"
+    class="gap-5 my-5">
+    <div class="tarjeta p-5 rounded-4"
+        style="border:  3px solid var(--color-boton-cancelar);">
+        <h3 class="texto-principal">Datos del negocio</h3>
+        <hr class="w-100 opacity-100 border-3"
+            style="color: var(--color-boton-cancelar); ">
+        <div id="seccionDatosNegocio" class="w-100">
+
+            <form id="formDatosNegocio" class="d-flex flex-column gap-2 ">
+
+                {% csrf_token %}
+
+                <div>
+                    <label class="texto-secundario"
+                        for="id_nombre_negocio">Nombre:
+                        <small style="color: var(--color-boton-eliminar)"
+                            id="error_nombre"></small>
+
+                    </label>
+                    <input class="form-control input-color"
+                        id="id_nombre_negocio" name="nombre" type="text">
+                </div>
+
+                <div>
+                    <label class="texto-secundario"
+                        for="id_descripcion_negocio">Descripción:
+                        <small style="color: var(--color-boton-eliminar)"
+                            id="error_descripcion"></small>
+                    </label>
+                    <textarea rows="7" class="form-control input-color"
+                        id="id_descripcion_negocio" name="descripcion"
+                        type="text"></textarea>
+                </div>
+
+                <div>
+                    <label class="texto-secundario"
+                        for="id_direccion_negocio">Dirección:
+                        <small style="color: var(--color-boton-eliminar)"
+                            id="error_direccion"></small>
+
+                    </label>
+                    <input class="form-control input-color"
+                        id="id_direccion_negocio" name="direccion" type="text">
+                </div>
+                <div>
+                    <label class="texto-secundario"
+                        for="id_telefono_negocio">Telefono:
+                        <small style="color: var(--color-boton-eliminar)"
+                            id="error_telefono"></small>
+
+                    </label>
+                    <input class="form-control input-color"
+                        id="id_telefono_negocio" name="telefono" type>
+
+                </div>
+                <div>
+                    <label class="texto-secundario"
+                        for="id_email_negocio">Email:
+                        <small style="color: var(--color-boton-eliminar)"
+                            id="error_email"></small>
+
+                    </label>
+                    <input class="form-control input-color"
+                        id="id_email_negocio" name="email" type="email">
+                </div>
+
+                <button type="button" class="btn btn-principal fs-6 px-4 mt-3"
+                    id="btnGuardarDatosNegocio">Guardar datos</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="tarjeta p-5 rounded-4"
+        style="border:  3px solid var(--color-boton-cancelar);">
+        <h3 class="texto-principal">Horario de Atencion</h3>
+        <hr class="w-100 opacity-100 border-3"
+            style="color: var(--color-boton-cancelar); ">
+
+        <div id="seccionHorario" class="w-100">
+
+            <form id="formHorario" class="d-flex flex-column">
+
+                {% csrf_token %}
+
+                <h4 class="texto-principal fs-5 mt-2 mb-0">Lunes</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(2, 1fr);"
+                    class="gap-3">
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_lunes_inicio">Apertura:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_lunes_inicio"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_lunes_inicio" name="lunes_inicio"
+                            type="time">
+                    </div>
+
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_lunes_fin">Cierre:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_lunes_fin"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_lunes_fin" name="lunes_fin" type="time">
+                    </div>
+                </div>
+
+                <h4 class="texto-principal fs-5 mt-2 mb-0">Martes</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(2, 1fr);"
+                    class="gap-3">
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_martes_inicio">Apertura:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_martes_inicio"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_martes_inicio" name="martes_inicio"
+                            type="time">
+                    </div>
+
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_martes_fin">Cierre:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_martes_fin"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_martes_fin" name="martes_fin" type="time">
+                    </div>
+                </div>
+
+                <h4 class="texto-principal fs-5 mt-2 mb-0">Miércoles</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(2, 1fr);"
+                    class="gap-3">
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_miercoles_inicio">Apertura:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_miercoles_inicio"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_miercoles_inicio" name="miercoles_inicio"
+                            type="time">
+                    </div>
+
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_miercoles_fin">Cierre:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_miercoles_fin"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_miercoles_fin" name="miercoles_fin"
+                            type="time">
+                    </div>
+                </div>
+
+                <h4 class="texto-principal fs-5 mt-2 mb-0">Jueves</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(2, 1fr);"
+                    class="gap-3">
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_jueves_inicio">Apertura:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_jueves_inicio"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_jueves_inicio" name="jueves_inicio"
+                            type="time">
+                    </div>
+
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_jueves_fin">Cierre:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_jueves_fin"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_jueves_fin" name="jueves_fin" type="time">
+                    </div>
+                </div>
+
+                <h4 class="texto-principal fs-5 mt-2 mb-0">Viernes</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(2, 1fr);"
+                    class="gap-3">
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_viernes_inicio">Apertura:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_viernes_inicio"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_viernes_inicio" name="viernes_inicio"
+                            type="time">
+                    </div>
+
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_viernes_fin">Cierre:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_viernes_fin"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_viernes_fin" name="viernes_fin" type="time">
+                    </div>
+                </div>
+
+                <h4 class="texto-principal fs-5 mt-2 mb-0">Sábado</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(2, 1fr);"
+                    class="gap-3">
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_sabado_inicio">Apertura:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_sabado_inicio"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_sabado_inicio" name="sabado_inicio"
+                            type="time">
+                    </div>
+
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_sabado_fin">Cierre:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_sabado_fin"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_sabado_fin" name="sabado_fin" type="time">
+                    </div>
+                </div>
+
+                <h4 class="texto-principal fs-5 mt-2 mb-0">Domingo</h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(2, 1fr);"
+                    class="gap-3">
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_domingo_inicio">Apertura:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_domingo_inicio"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_domingo_inicio" name="domingo_inicio"
+                            type="time">
+                    </div>
+
+                    <div>
+                        <label class="texto-secundario"
+                            for="id_domingo_fin">Cierre:
+                            <small style="color: var(--color-boton-eliminar)"
+                                id="error_domingo_fin"></small>
+                        </label>
+                        <input class="form-control input-color"
+                            id="id_domingo_fin" name="domingo_fin" type="time">
+                    </div>
+                </div>
+                <input type="text" hidden name="negocio" id="negocio">
+            </form>
+
+            <button type="button" class="btn btn-principal fs-6 px-4 mt-3 w-100"
+                id="btnGuardarHorario">Guardar horario</button>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="tarjeta p-5 rounded-4">
+    <h3 class="texto-principal">Tema de la web</h3>
+    <hr class="w-100 opacity-100 border-3"
+        style="color: var(--color-boton-cancelar); ">
+    <div id="seccionTemas"
+        style="display: grid; grid-template-columns: repeat(3, 1fr); width: 40%;; aspect-ratio: 4/1;gap: 10px;">
+
+        <div
+            class="position-relative rounded-3  d-flex justify-content-center align-items-center"
+            style="background-color: #111827; border: none; color: #E5E7EB; height: 100px; aspect-ratio: 4/3;">
+
+            <small>Azul oscuro</small>
+            <button style="background: none; border: none; color: #E5E7EB;"
+                class="position-absolute top-0 end-0 bi bi-circle"
+                id="btnTemaAzul">
+            </button>
+
+        </div>
+
+        <div
+            class="position-relative rounded-3  d-flex justify-content-center align-items-center"
+            style="background-color: #F3F4F6; border: none; color: #111827; height: 100px; aspect-ratio: 4/3;">
+
+            <small>Claro</small>
+            <button style="background: none; border: none; color: #111827;"
+                class="position-absolute top-0 end-0 bi bi-circle"
+                id="btnTemaClaro">
+            </button>
+
+        </div>
+
+    </div>
+</div>

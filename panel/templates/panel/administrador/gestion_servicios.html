@@ -1,0 +1,203 @@
+<div style="display: grid; grid-template-columns: 4fr 1fr;">
+  <div>
+    <h2 class="texto-principal">Gestion de servicios</h2>
+    <p class="texto-secundario">En este apartado puedes agregar, editar y
+      organizar tu servicios</p>
+  </div>
+  <div style="justify-self: center; align-self: center;">
+    <button type="button" class="btn btn-principal px-3 py-2" data-bs-toggle="modal"
+      data-bs-target="#modalAgregarServicio">
+      <i class="bi bi-plus-circle pe-2"></i>
+      Agregar servicio
+    </button>
+  </div>
+  <div class="my-3" style="position: relative; display: flex; align-items: center;">
+    <i class="bi bi-search fs-5 ps-3" style="position: absolute;color: var(--color-texto-secundario);"></i>
+    <input type="search" placeholder="Buscar un servicio por nombre" id="buscarServicio" class="form-control py-2 ps-5">
+  </div>
+  <div class="my-3">
+    <select class="form-select py-2" style="justify-self: center; width: fit-content;" id="estadosServicios">
+      <option value=" ">Todos los estados</option>
+      <option value="Activo">Activo</option>
+      <option value="Inactivo">Inactivo</option>
+    </select>
+  </div>
+</div>
+
+<table class="my-3 w-100 tabla-servicios">
+  <thead>
+    <tr>
+      <th class="p-3" style="width: 50%;" scope="col">Nombre servicio</th>
+      <th class="p-3" style="width: 12.5%;" scope="col">Valor</th>
+      <th class="p-3" style="width: 12.5%;" scope="col">Estado</th>
+      <th class="p-3" style="width: 12.5%;" scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+        <hr class="w-100 opacity-100 border-3" style="color: var(--color-boton-cancelar); ">
+<div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+  <p class="texto-secundario" id="resultados">Mostrando</p>
+  <div id="paginacion" style="justify-self: end" class="d-flex gap-2">
+  </div>
+</div>
+
+<!-- MODAL PARA AGREGAR SERVICIOS -->
+
+<div class="modal fade" id="modalAgregarServicio" aria-labelledby="modalAgregarServicio">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content tarjeta">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 texto-principal" id="exampleModalLabel">Agregar Servicio</h1>
+        <button type="button" class="btn-close texto-principal" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="formServicio">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="id_nombre" class="col-form-label texto-secundario">Nombre
+              <small style="color: var(--color-boton-eliminar)" id="error_nombre_servicio"></small>
+            </label>
+            <input type="text" class="form-control input-color" name="nombre" id="id_nombre">
+          </div>
+
+          
+          <div class="mb-3">
+            <label for="id_descripcion" class="col-form-label texto-secundario">Descripcion
+              <small style="color: var(--color-boton-eliminar)" id="error_descripcion_servicio"></small>
+            </label>
+            <textarea maxlength="200" rows="5" class="form-control input-color" name="descripcion"
+              id="id_descripcion"></textarea>
+          </div>
+
+      
+
+
+          <div class="mb-3">
+            <label for="id_icono" class="col-form-label texto-secundario">Icono (opcional)</label>
+            <div id="iconoServicio" class="rounded-3"
+              style="border: 1px solid var(--color-boton-cancelar); height: 100px; width: 100px; display: flex;justify-content: center; align-items: center;">
+            </div>
+          </div>
+          <input hidden type="text" name="icono" class="form-control input-color" id="id_icono">
+          <div hidden id="Iconos"
+            style="background-color: var(--color-fondo-secundario); height: 300px; width: 100%; overflow: scroll; overflow-x: hidden;">
+
+            <input placeholder="Buscar icono" type="search" class="form-control" id="buscadorIcono">
+          </div>
+
+          <div class="mb-3">
+            <label for="id_estado" class="col-form-label texto-secundario">Estado
+              <small style="color: var(--color-boton-eliminar)" id="error_estado_servicio"></small>
+            </label>
+            <select class="form-select input-color" name="estado" id="id_estado">
+              <option value="">Selecciona un estado</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="id_valor" class="col-form-label texto-secundario">Valor
+              <small style="color: var(--color-boton-eliminar)" id="error_valor_servicio"></small>
+
+            </label>
+            <input type="number" name="valor" class="form-control input-color" id="id_valor">
+          </div>
+          <small id="mensajeAgregarServicio" style="min-height: 10px; color: red;"></small>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" id="btnAgregarServicio" class="btn btn-principal">Agregar</button>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="modalEditServicio" aria-labelledby="modalEditServicio">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content tarjeta">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 texto-principal" id="tituloModalEdit">Editar Servicio</h1>
+        <button type="button" class="btn-close texto-principal" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formModalEdit">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="id_nombre_edit" class="col-form-label texto-secundario">Nombre
+              <small style="color: var(--color-boton-eliminar)" id="error_nombre_servicio_edit"></small>
+            </label>
+            <input type="text" class="form-control input-color" name="nombre" id="id_nombre_edit">
+          </div>
+          <div class="mb-3">
+            <label for="id_descripcion_edit" class="col-form-label texto-secundario">Descripcion
+              <small style="color: var(--color-boton-eliminar)" id="error_descripcion_servicio_edit"></small>
+
+            </label>
+            <textarea maxlength="200" class="form-control input-color" name="descripcion"
+              id="id_descripcion_edit"></textarea>
+          </div>
+          <div>
+
+
+            <div class="mb-3">
+              <label for="id_icono_edit" class="col-form-label texto-secundario">Icono (opcional)</label>
+              <div id="iconoServicioEdit" class="rounded-3"
+                style="border: 1px solid black; height: 100px; width: 100px; display: flex;justify-content: center; align-items: center;">
+              </div>
+            </div>
+            <input hidden type="text" name="icono" class="form-control input-color" id="id_icono_edit">
+            <div hidden id="IconosEdit"
+              style="background-color: var(--color-fondo-secundario); height: 300px; width: 100%; overflow: scroll; overflow-x: hidden;">
+
+              <input placeholder="Buscar icono" type="search" class="form-control" id="buscadorIconoEdit">
+            </div>
+
+
+
+            <div class="mb-3">
+              <label for="id_estado_edit" class="col-form-label texto-secundario">Estado
+                <small style="color: var(--color-boton-eliminar)" id="error_estado_servicio_edit"></small>
+
+              </label>
+              <select class="form-select input-color" name="estado" id="id_estado_edit">
+                <option value="">Selecciona un estado</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="id_valor_edit" class="col-form-label texto-secundario">Valor
+              <small style="color: var(--color-boton-eliminar)" id="error_valor_servicio_edit"></small>
+
+            </label>
+            <input type="number" name="valor" class="form-control input-color" id="id_valor_edit">
+          </div>
+          <small id="mensajeEditServicio" style="min-height: 10px; color: red;"></small>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" id="btnEditServicio" class="btn btn-principal">Guardar</button>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<h2 class="texto-principal">Mis Datos</h2>
+<p class="texto-secundario">En este apartado puedes cambiar tu informacion personal.</p>
+
+<div class="tarjeta p-4 rounded-4 border border-2" style="max-width: 600px;">
+    <form id="form-mis-datos" method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <input type="text" class="form-control input-color" name="first_name" value="{{ usuario.first_name }}">
+            <small id="error_first_name" class="text-danger"></small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input type="email" class="form-control input-color" name="email" value="{{ usuario.email }}">
+            <small id="error_email" class="text-danger"></small>
+        </div>
+
+        <button type="submit" id="btn-guardar-datos" class="btn btn-principal w-100 mt-3">
+            Guardar Cambios
+        </button>
+    </form>
+</div>

@@ -1,0 +1,198 @@
+<h2 class="texto-principal">Gestion de inventario</h2>
+<p class="texto-secundario">En este apartado puedes gestionar tu inventario.</p>
+
+<div style="display: grid; grid-template-columns: 30% 70%;">
+
+    <div class="tarjeta p-4 rounded-4" style="border: 3px solid var(--color-boton-cancelar); height: fit-content;">
+
+        <h3 class="texto-principal fs-4">Añadir insumo</h3>
+        <hr class="w-100 opacity-100 border-3" style="color: var(--color-boton-cancelar); ">
+
+        <form id="formInsumo" method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_nombre" class="col-form-label texto-secundario">
+                    Nombre
+                    <small style="color: var(--color-boton-eliminar)" id="error_nombre"></small>
+                </label>
+                <input type="text" class="form-control input-color" name="nombre" id="id_nombre">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 50% 40%;" class="justify-content-between">
+                <div class="mb-3">
+                    <label for="id_cantidad" class="col-form-label texto-secundario">
+                        Cantidad
+                        <small style="color: var(--color-boton-eliminar)" id="error_cantidad"></small>
+                    </label>
+                    <input min=0 type="number" class="form-control input-color" name="cantidad" id="id_cantidad">
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_unidad" class="col-form-label texto-secundario">
+                        Unidad
+                        <small style="color: var(--color-boton-eliminar)" id="error_unidad"></small>
+                    </label>
+                    <select class="form-select input-color" name="unidad" id="id_unidad">
+                        <option value="">Selecciona una medida</option>
+                        <option value="Unidad">Unidad</option>
+                        <option value="Kilogramo">Kilogramo</option>
+                        <option value="Gramo">Gramo</option>
+                        <option value="Litro">Litro</option>
+                        <option value="Mililitro">Mililitro</option>
+                        <option value="Metro">Metro</option>
+                        <option value="Centímetro">Centímetro</option>
+                        <option value="Milímetro">Milímetro</option>
+                        <option value="Paquete">Paquete</option>
+                        <option value="Caja">Caja</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_stock_minimo" class="col-form-label texto-secundario">
+                    Stock Mínimo (Alerta)
+                    <small style="color: var(--color-boton-eliminar)" id="error_stock_minimo"></small>
+                </label>
+                <input min=0 type="number" class="form-control input-color" name="stock_minimo" id="id_stock_minimo" >
+            </div>
+
+            <div class="mb-3">
+                <label for="id_costo" class="col-form-label texto-secundario">
+                    Costo
+                    <small style="color: var(--color-boton-eliminar)" id="error_costo"></small>
+                </label>
+                <input min="0" type="number" class="form-control input-color" name="costo" id="id_costo">
+            </div>
+
+            <div class="mb-3">
+                <label for="id_servicios" class="col-form-label texto-secundario">
+                    Servicios asociados
+                    <small style="color: var(--color-boton-eliminar)" id="error_servicios"></small>
+                </label>
+                <select multiple class="form-control input-color" name="servicios" id="id_servicios">
+                </select>
+            </div>
+
+            <button id="btnAgregarInsumo" type="button" class="btn btn-principal">Agregar insumo</button>
+        </form>
+    </div>
+
+    <div class="tarjeta p-4 rounded-4 ms-3" style="border: 3px solid var(--color-boton-cancelar);">
+
+        <div style="justify-content: space-between; display: flex; align-items: center;">
+            <h3 class="texto-principal fs-4">Inventario actual</h3>
+            <div style="position: relative; display: flex; align-items: center;">
+                <i class="bi bi-search fs-5 ps-3" style="position: absolute;color: var(--color-texto-secundario);"></i>
+                <input type="search" placeholder="Buscar insumo" id="buscarServicio" class="form-control py-2 ps-5">
+            </div>
+        </div>
+        <hr class="w-100 opacity-100 border-3" style="color: var(--color-boton-cancelar); ">
+        <table class="my-3 w-100 tabla-inventario">
+            <thead>
+                <tr>
+                    <th class="p-3" style="width: 16%;" scope="col">Nombre insumo</th>
+                    <th class="p-3" style="width: 16%;" scope="col">Cantidad</th>
+                    <th class="p-3" style="width: 16%;" scope="col">Unidad</th>
+                    <th class="p-3" style="width: 16%;" scope="col">Costo</th>
+                    <th class="p-3" style="width: 16%;" scope="col">Servicios Asociados</th>
+                    <th class="p-3" style="width: 16%;" scope="col">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+             
+            </tbody>
+        </table>
+        <hr class="w-100 opacity-100 border-3" style="color: var(--color-boton-cancelar); ">
+        <div class="d-flex justify-content-between">
+            <small class="texto-secundario" id="resultados"></small>
+            <div id="paginacion"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditInsumo" data-bs-backdrop="static" aria-labelledby="modalEditInsumo" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content tarjeta">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 texto-principal">Editar insumo</h1>
+        <button type="button" class="btn-close texto-principal" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form method="post" id="formEditInsumo">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label for="id_nombre_edit" class="col-form-label texto-secundario">
+              Nombre
+              <small style="color: var(--color-boton-eliminar)" id="error_nombre_edit"></small>
+            </label>
+            <input type="text" class="form-control input-color" name="nombre" id="id_nombre_edit">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 50% 45%; gap: 5%;" class="justify-content-between">
+            <div class="mb-3">
+              <label for="id_cantidad_edit" class="col-form-label texto-secundario">
+                Cantidad
+                <small style="color: var(--color-boton-eliminar)" id="error_cantidad_edit"></small>
+              </label>
+              <input min=0 type="number" class="form-control input-color" name="cantidad" id="id_cantidad_edit">
+            </div>
+
+            <div class="mb-3">
+              <label for="id_unidad_edit" class="col-form-label texto-secundario">
+                Unidad
+                <small style="color: var(--color-boton-eliminar)" id="error_unidad_edit"></small>
+              </label>
+              <select class="form-select input-color" name="unidad" id="id_unidad_edit">
+                <option value="">Selecciona una medida</option>
+                <option value="Unidad">Unidad</option>
+                <option value="Kilogramo">Kilogramo</option>
+                <option value="Gramo">Gramo</option>
+                <option value="Litro">Litro</option>
+                <option value="Mililitro">Mililitro</option>
+                <option value="Metro">Metro</option>
+                <option value="Centímetro">Centímetro</option>
+                <option value="Milímetro">Milímetro</option>
+                <option value="Paquete">Paquete</option>
+                <option value="Caja">Caja</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+             <label for="id_stock_minimo_edit" class="col-form-label texto-secundario">
+               Stock Mínimo (Alerta)
+               <small style="color: var(--color-boton-eliminar)" id="error_stock_minimo_edit"></small>
+             </label>
+             <input type="number" class="form-control input-color" name="stock_minimo" id="id_stock_minimo_edit">
+          </div>
+
+          <div class="mb-3">
+            <label for="id_costo_edit" class="col-form-label texto-secundario">
+              Costo
+              <small style="color: var(--color-boton-eliminar)" id="error_costo_edit"></small>
+            </label>
+            <input type="number" class="form-control input-color" name="costo" id="id_costo_edit">
+          </div>
+
+          <div class="mb-3">
+            <label for="id_servicios_edit" class="col-form-label texto-secundario">
+              Servicios asociados
+              <small style="color: var(--color-boton-eliminar)" id="error_servicios_edit"></small>
+            </label>
+            <select multiple class="form-select input-color" name="servicios" id="id_servicios_edit">
+                <option value="">Todos los servicios</option>
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" id="btnEditInsumo" class="btn btn-principal">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

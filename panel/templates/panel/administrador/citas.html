@@ -1,0 +1,180 @@
+<h2 class="texto-principal">Gestion de citas</h2>
+<p class="texto-secundario">En este apartado puedes visualizar y gestionar las citas realizadas</p>
+
+
+<div style="display: grid; grid-template-columns: 70% 30%;">
+    <div class="p-4 rounded-4" style="background-color: var(--color-fondo-secundario);">
+        <div id="calendario">
+        </div>
+    </div>
+
+    <div class="p-4 rounded-4 ms-3" style="background-color: var(--color-fondo-secundario);height: fit-content;">
+        <h3 class="texto-principal fs-5">Filtros</h3>
+
+
+            <div class="mb-3">
+                <label for="id_usuario_buscar" class="col-form-label texto-secundario">
+                    Cliente
+                </label>
+                <input placeholder="Ej: usuario@usuario.cl" type="text" class="form-control input-color" name="usuario" id="id_usuario_buscar">
+            </div>
+
+            <div class="mb-3">
+                <label for="select_buscar_servicios" class="col-form-label texto-secundario">
+                    Servicios
+                </label>
+                <select multiple class="w-100 input-color" name="servicios" id="select_buscar_servicios"></select>
+            </div>
+
+            <div id="filtrosEstado" style="display: flex; flex-direction: column;">
+                <h3 class="texto-principal fs-6">Estado</h3>
+                <label class="texto-secundario">
+                    <input id="filtro_pendiente" value="Pendiente" type="checkbox" name="filtro">
+                    Pendiente
+                </label>
+
+                <label class="texto-secundario">
+                    <input id="filtro_cancelada" value="Cancelada" type="checkbox" name="filtro">
+                    Cancelada
+                </label>
+
+                <label class="texto-secundario">
+                    <input id="filtro_ausente" value="Ausente" type="checkbox" name="filtro">
+                    Ausente
+                </label>
+
+                <label class="texto-secundario">
+                    <input id="filtro_asistida" value="Asistida" type="checkbox" name="filtro">
+                    Asistida
+                </label>
+            </div>
+
+
+
+    
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="modalCancelarCita" tabindex="-1" aria-labelledby="modalCancelarCita" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <form id="formCorreo" method="post">
+        {% csrf_token %}
+        
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 texto-principal" id="modalCancelarCitaTitulo">Cancelar cita</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="asuntoCorreo" class="col-form-label">Asunto:</label>
+              <input required type="text" class="form-control" name="asunto" id="asuntoCorreo">
+            </div>
+            <div class="mb-3">
+              <label for="mensajeCorreo" class="col-form-label">Mensaje:</label>
+              <textarea rows="5" required minlength="50" class="form-control" name="mensaje" id="mensajeCorreo"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="destinatarioCorreo" class="col-form-label">Destinatario:</label>
+              <input readonly name="destinatario" class="form-control" id="destinatarioCorreo">
+            </div>
+            <input hidden id="id_cita" name="id_cita" type="text">
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+        </div>
+
+      </form> </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modalEditCita" data-bs-backdrop="static" aria-labelledby="modalEditCita" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content tarjeta">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 texto-principal">Editar cita</h1>
+                <button type="button" class="btn-close texto-principal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" id="formEditCita">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="id_usuario_edit" class="col-form-label texto-secundario">
+                            Usuario
+                            <small style="color: var(--color-boton-eliminar)" id="error_usuario_edit"></small>
+                        </label>
+                        <input disabled type="text" class="form-control input-color" name="usuario"
+                            id="id_usuario_edit">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_servicio_edit" class="col-form-label texto-secundario">
+                            Servicio
+                            <small style="color: var(--color-boton-eliminar)" id="error_servicio_edit"></small>
+                        </label>
+                        <input type="text" class="form-control input-color" name="servicio" id="id_servicio_edit">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_fecha_edit" class="col-form-label texto-secundario">
+                            Fecha
+                            <small style="color: var(--color-boton-eliminar)" id="error_fecha_edit"></small>
+                        </label>
+                        <input type="date" class="form-control input-color" name="fecha" id="id_fecha_edit">
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 50% 45%; gap: 5%;"
+                        class="justify-content-between">
+                        <div class="mb-3">
+                            <label for="id_hora_edit" class="col-form-label texto-secundario">
+                                Hora
+                                <small style="color: var(--color-boton-eliminar)" id="error_hora_edit"></small>
+                            </label>
+                            <input type="time" class="form-control input-color" name="hora" id="id_hora_edit">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_estado_edit" class="col-form-label texto-secundario">
+                                Estado
+                                <small style="color: var(--color-boton-eliminar)" id="error_estado_edit"></small>
+                            </label>
+                            <select class="form-select input-color" name="estado" id="id_estado_edit">
+                                <option value="">Seleccionar estado</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Asistida">Asistida</option>
+                                <option value="Ausente">Ausente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="btnCancelarCita" class="btn btn-danger me-auto">Cancelar cita</button>
+                        <button type="button" class="btn btn-cancelar" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnEditCita" class="btn btn-principal">Guardar cambios</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

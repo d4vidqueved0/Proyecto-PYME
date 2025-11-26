@@ -1,0 +1,69 @@
+<div>
+<div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="texto-principal m-0">Mis Citas</h2>
+            <small id="info-paginacion"></small>
+        </div>
+        
+        <div style="width: 200px;">
+            <select id="filtro-estado-citas" class="form-select">
+                <option value="todos">Todos los estados</option>
+                <option value="Pendiente">Pendientes</option>
+                <option value="Asistida">Asistidas</option>
+                <option value="Ausente">Ausentes</option>
+                <option value="Cancelada">Canceladas</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="d-flex gap-3 flex-column" id="tabla-citas-container">
+        {% if citas %}
+        {% for cita in citas %}
+        <div data-estado={{cita.estado}} class="cita-cliente">
+                <i  class="fs-3 {{ cita.servicio.icono|default:'bi bi-calendar-event' }}"></i>
+            <div>
+                <h3 class="fs-5 texto-principal">{{ cita.servicio.nombre }}</h3>
+                <p class="m-0">
+                    Estado:
+                    {% if cita.estado == 'Pendiente' %}
+                    <span data-estado={{cita.estado}}{{cita.id}} class="text-warning fw-bold">{{ cita.estado }}</span>
+                    {% elif cita.estado == 'Asistida' %}
+                    <span class="text-success fw-bold">{{ cita.estado }}</span>
+                    {% elif cita.estado == 'Ausente' %}
+                    <span class="text-danger fw-bold">{{ cita.estado }}</span>
+                    {% else %}
+                    <span class="text-muted">{{ cita.estado }}</span>
+                    {% endif %}
+                </p>
+
+                <p class="m-0">
+                    {{ cita.fecha|date:"D, d M Y" }} a las {{cita.hora|time:"H:i" }}
+                </p>
+            </div>
+
+            <div class="ms-auto">
+                {% if cita.estado == 'Pendiente' %}
+                <button class="btn-danger btn"
+                    data-id="{{ cita.id }}">
+                    Cancelar cita
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="text-center p-5">
+            <i class="bi bi-calendar-x fs-1 text-muted"></i>
+            <p class="mt-3 text-muted">No tienes citas programadas.</p>
+            <a href="/agendar_cita/" class="btn btn-primary mt-2">Agendar
+                ahora</a>
+        </div>
+        {% endif %}
+    </div>
+    
+<div id="paginacion-cliente" class="d-flex gap-2 mt-4 pb-2">
+    da
+</div>
+    
+</div>

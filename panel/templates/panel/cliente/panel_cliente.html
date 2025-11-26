@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div style="display: grid; grid-template-columns: 1fr 4fr;" class="w-100 h-100 m-auto">
+    
+    <div class="tarjeta">
+        <ul class="d-flex flex-column gap-3 h-100 pt-5">
+            <li>
+                <a href="{% url 'cliente_citas' %}" class="btn btn-secundario w-100 text-start" data-link>
+                    <i class="bi bi-calendar2-check me-2"></i>Mis Citas
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'cliente_datos' %}" class="btn btn-secundario w-100 text-start" data-link>
+                    <i class="bi bi-person-vcard me-2"></i>Mis Datos
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <div id="contenidoPanel" class="p-5 panel-contenedor-estable">
+        {% if seccion_inicial %}
+            {% include seccion_inicial %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal-carga" id="modal-carga">
+
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+</div>
+
+<script type="module" src="{% static 'js/panel_cliente/cliente.js' %}"></script>
+{% endblock %}

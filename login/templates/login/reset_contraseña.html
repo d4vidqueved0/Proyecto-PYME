@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="tarjeta p-5 rounded-5 mt-5">
+   <h2 class="texto-principal">¿Olvidaste tu contraseña?</h2>
+  <p class="texto-secundario">Ingresa tu dirección de correo electrónico y te enviaremos instrucciones para establecer una nueva contraseña.</p>
+  <form method="post" class="d-flex flex-column gap-3">
+    {% csrf_token %}
+        <input class="form-control" placeholder="Email" type="email" name="email" autocomplete="email" maxlength="254" required="" id="id_email">
+        <div>
+            <button class="btn btn-principal" type="submit">Enviar correo</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}

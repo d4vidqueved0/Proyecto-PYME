@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div style="display: grid; grid-template-columns: 1fr 4fr;"
+    class="w-100 h-100 m-auto">
+
+    <div class="tarjeta">
+        <ul class="d-flex flex-column gap-3 pt-5" style="height: 100vh;">
+            <li>
+                <a href="{% url 'personalizacion' %}"
+                    class="btn btn-secundario w-100 text-start" data-link>
+                    <i class="bi bi-palette me-2"></i>Personalización
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'gestion_inventario' %}"
+                    class="btn btn-secundario w-100 text-start" data-link>
+                    <i class="bi bi-box-seam me-2"></i>Gestión de inventario
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'gestion_servicios' %}"
+                    class="btn btn-secundario w-100 text-start" data-link>
+                    <i class="bi bi-award me-2"></i>Gestión de servicios
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'gestion_citas' %}"
+                    class="btn btn-secundario w-100 text-start" data-link>
+                    <i class="bi bi-calendar-event me-2"></i>Gestión de citas
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'dashboard' %}"
+                    class="btn btn-secundario w-100 text-start" data-link>
+                    <i class="bi bi-clipboard-data me-2"></i>Dashboard
+                </a>
+            </li>
+              <li>
+                <a href="{% url 'principal' %}"
+                    class="btn btn-secundario w-100 text-start" style="color: red;">
+                  <i class="bi bi-box-arrow-left me-2"></i>Salir
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="contenidoPanel" class="p-5" style="position: relative;">
+        {% if seccion_inicial %}
+        {% include seccion_inicial %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal-carga" id="modal-carga">
+
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+</div>
+
+<div class="dropdown position-fixed bottom-0 start-0 m-3"
+    style="z-index: 1050;">
+
+    <button class="btn btn-light shadow-sm position-relative rounded-circle"
+        type="button"
+        id="btnNotificaciones"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="width: 50px; height: 50px;">
+
+        <i class="bi bi-bell-fill fs-5 text-primary"></i>
+
+        <span id="badgeContador"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            style="display: none;">
+            0
+            <span class="visually-hidden">mensajes no leídos</span>
+        </span>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end shadow p-0"
+        aria-labelledby="btnNotificaciones"
+        style="width: 350px; max-height: 400px; overflow-y: auto;"
+        id="listaNotificaciones">
+
+        <li
+            class="p-3 bg-light border-bottom d-flex justify-content-between align-items-center">
+            <h6 class="m-0 text-primary fw-bold">Notificaciones</h6>
+            <button id="btnLimpiarNotificaciones"
+                class="btn btn-sm btn-link text-decoration-none p-0"
+                style="font-size: 0.8rem; display: none;">
+                Limpiar todo
+            </button>
+        </li>
+            {% csrf_token %}
+        <div id="contenidoNotificaciones">
+            <li class="text-center p-4 text-muted">
+                <small>Cargando...</small>
+            </li>
+        </div>
+    </ul>
+</div>
+
+<script type="module" src="{% static 'js/panel/panel.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.9.0/locales-all.global.min.js"></script>
+{% endblock %}

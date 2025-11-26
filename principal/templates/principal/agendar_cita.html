@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}
+Agendar cita
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="texto-principal mt-5 text-center">Agendar cita</h1>
+    <p class="texto-secundario text-center">Completa los siguientes campos para
+        agendar tu cita</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-cita">
+            <div class="tarjeta-agendar">
+                <div>
+                    <label class="texto-principal fs-5 mb-2" for="fecha">
+                        Selecciona una fecha
+                        <small class="mensaje-error" id="mensajeFecha"></small>
+                    </label>
+                    <input id="fecha" name="fecha" hidden type="date">
+                    <div class="calendario rounded-4" id="calendario">
+                        <div class="calendario-header px-5 pt-3">
+                            <i
+                                class="bi bi-caret-left-fill texto-principal fs-5"
+                                id="btnAnteriorCalendario"></i>
+                            <h3 class="texto-principal fs-5"
+                                id="mesAño">Noviembre</h3>
+                            <i
+                                class="bi bi-caret-right-fill texto-principal fs-5"
+                                id="btnSiguienteCalendario"></i>
+                        </div>
+
+                        <div class="calendario-interno p-3"
+                            id="diasCalendario"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="texto-principal fs-5">Seleccione un servicio</h3>
+
+                    <label for="selectServicios" class="texto-secundario">
+                        Servicios:
+                        <small id="mensajeServicio"
+                            class="mensaje-error"></small>
+                    </label>
+
+                    <select lang="es" name="servicio" class="form-select input-color"
+                        id="selectServicios">
+                        <option value></option>
+                    </select>
+
+                    <p id="valor" class="texto-secundario mt-3">Valor: </p>
+
+                    <label for="hora" class="texto-principal fs-5 mb-2 mt-2">
+                        Horas disponibles
+                        <small id="mensajeHora" class="mensaje-error"></small>
+                    </label>
+
+                    <input type="time" name="hora" hidden id="hora">
+                    <div id="horasDisponibles"></div>
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-principal px-4 mt-3 mx-auto mb-2 rounded-3 fs-5"
+                id="btnAgendarCita">
+                Agendar cita
+            </button>
+
+        </div>
+
+    </form>
+</div>
+
+{% load static %}
+<script src="{% static 'js/cita.js' %}"></script>
+{% endblock %}
