@@ -4,9 +4,7 @@ from login.models import Usuario
 
 # Create your models here.
 
-
 class Insumo(models.Model):
-
     nombre = models.CharField(max_length=50, unique=True)
     cantidad = models.PositiveIntegerField()
     costo = models.PositiveIntegerField()
@@ -30,7 +28,6 @@ class Insumo(models.Model):
 
 
 class Servicio(models.Model):
-
     Estados = [("Activo", "Activo"), ("Inactivo", "Inactivo")]
 
     nombre = models.CharField(max_length=50, unique=True)
@@ -45,12 +42,10 @@ class Servicio(models.Model):
 
 
 class Tema(models.Model):
-
     nombre = models.CharField(max_length=20)
 
 
 class Negocio(models.Model):
-
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=1000)
     direccion = models.CharField(max_length=100)
@@ -62,7 +57,6 @@ class Negocio(models.Model):
 
 
 class Cita(models.Model):
-
     Estados = [
         ("Pendiente", "Pendiente"),
         ("Cancelada", "Cancelada"),
@@ -72,7 +66,7 @@ class Cita(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha = models.DateField()
     hora = models.TimeField()
-    estado = models.CharField(choices=Estados, default="Pendiente")
+    estado = models.CharField(choices=Estados, default="Pendiente", max_length=20)
     cancelado_por_usuario = models.BooleanField(default=False)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
