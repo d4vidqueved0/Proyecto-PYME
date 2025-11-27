@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ysrec@le(3qtjh***dx=%waeh=x#kdb=aa27k@v%9_2h0-@0te"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,9 +80,13 @@ WSGI_APPLICATION = "AplicacionWEB.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'PYME',
+        'USER': 'admin',
+        'PASSWORD': 'XBBLffiL8iVNvHl2HK8k',
+        'HOST': 'database-1.c3u2i4ae4u9h.us-east-2.rds.amazonaws.com', # Copialo de la consola RDS cuando termine de crearse
+        'PORT': '3306',
     }
 }
 
@@ -125,6 +129,7 @@ STATIC_URL = "static/"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
